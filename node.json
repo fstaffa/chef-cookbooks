@@ -2,6 +2,7 @@
     "run_list": [
         "recipe[apt]",
         "recipe[standard_setup]",
-        "recipe[jdk]"
+        "recipe[jdk]",
+	"recipe[elixir]"
     ]
 }
