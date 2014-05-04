@@ -14,7 +14,28 @@ dpkg_package "esl-erlang" do
   ignore_failure true
 end
 
-#apt_package "esl-erlang" do
-  #source "#{target_dir}/#{name}"
-  #action :install
-#end
+elixir_file = "elixir-0.13.1.zip"
+elixir_zip_location = "#{target_dir}/#{elixir_file}" 
+remote_file elixir_zip_location do
+  source "https://github.com/elixir-lang/elixir/releases/download/v0.13.1/Precompiled.zip"
+  mode 0644
+end
+
+elixir_directory = "/home/mathematician314/data/applications/elixir" 
+
+directory elixir_directory do
+  action :create
+  recursive true
+  user "mathematician314"
+end
+
+execute "get repo" do
+  command "unzip #{elixir_zip_location} -d #{elixir_directory}"
+end unless File.directory?(elixir_directory)
+
+
+%w{elixir mix iex}.each do |file|
+  link "/usr/local/bin/#{file}" do
+    to "#{elixir_directory}/bin/#{file}"
+  end
+end
