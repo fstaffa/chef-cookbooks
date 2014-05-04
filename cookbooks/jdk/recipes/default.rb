@@ -2,6 +2,10 @@ execute "get repo" do
   command "add-apt-repository ppa:webupd8team/java"
 end
 
+execute "get repo" do
+  command "apt-get update"
+end
+
 execute "agree license" do
   command "/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections"
 end
