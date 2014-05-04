@@ -21,7 +21,8 @@ remote_file elixir_zip_location do
   mode 0644
 end
 
-elixir_directory = "/home/mathematician314/data/applications/elixir" 
+applications_directory = "/home/mathematician314/data/applications"
+elixir_directory = "#{applications_directory}/elixir" 
 
 directory elixir_directory do
   action :create
@@ -38,4 +39,21 @@ end unless File.directory?(elixir_directory)
   link "/usr/local/bin/#{file}" do
     to "#{elixir_directory}/bin/#{file}"
   end
+end
+
+rebar_directory = "#{applications_directory}/rebar"
+
+directory rebar_directory do
+  action :create
+  recursive true
+  user "mathematician314"
+end
+
+remote_file "#{rebar_directory}/rebar" do
+  source "https://github.com/rebar/rebar/wiki/rebar"
+  mode 0755
+end
+
+link "/usr/local/bin/rebar" do
+  to "#{rebar_directory}/rebar"
 end
