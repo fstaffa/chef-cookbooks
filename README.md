@@ -11,3 +11,5 @@ mkdir data
 cd data
 
 git clone git@github.com:fstaffa/chef-cookbooks.git chef
+
+sudo chef-solo -c chef/solo.rb 
